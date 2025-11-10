@@ -1,0 +1,26 @@
+/* static/css/contact.css */
+
+.contact-form-container {
+    max-width: 700px;
+    margin: 2rem auto;
+    background: var(--bg-dark-secondary);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color); 
+}
+
+.contact-form-container h1 {
+    text-align: center;
+}
+
+.contact-form-container p {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+    color: var(--text-muted); /* Otomatis pakai warna abu-biru lembut */
+}
+
+form button[type="submit"] {
+    width: 100%;
+    font-size: 1.1rem;
+}

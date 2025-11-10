@@ -1,0 +1,98 @@
+/* static/css/auth.css */
+
+.auth-form-container {
+    max-width: 500px; /* Batasi lebar kontainer form */
+    margin: 2rem auto;
+    background: var(--bg-dark-secondary);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.auth-form-container h1 {
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+}
+
+.auth-form-container p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Atur ulang style tombol di auth.css */
+.auth-form .btn {
+    background: var(--primary-color);
+    border: none;
+    color: var(--text-light);
+    box-shadow: 0 4px 15px rgba(157, 78, 221, 0.4);
+}
+
+.google-btn {
+    /* Style khusus tombol Google */
+    background: #ffffff;
+    color: #333;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+.google-btn:hover {
+    background: #f0f0f0;
+    color: #333;
+    transform: translateY(-2px);
+}
+
+.auth-form p {
+    display: none; /* Sembunyikan field tersembunyi */
+}
+
+/* * Tapi KITA INGIN MELIHAT paragraf 'p' normal 
+ * yang kita tulis di template kita.
+ * Jadi kita buat pengecualian:
+ */
+.auth-form-container > p {
+    display: block; /* Tampilkan paragraf <p> yang di luar form */
+}
+
+.auth-form p {
+    display: block;
+    text-align: left; /* Ratakan label ke kiri */
+    margin-bottom: 1rem;
+}
+
+/* Sembunyikan field tersembunyi (jika ada) */
+.auth-form input[type="hidden"] {
+    display: none;
+}
+
+/* Style untuk label (Email, Username) */
+.auth-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+/* Style untuk input field */
+.auth-form input[type="text"],
+.auth-form input[type="email"] {
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: var(--bg-dark-primary);
+    color: var(--text-light);
+}
+
+.auth-form .btn {
+    width: 100%; /* Tombol jadi lebar penuh */
+    margin-top: 1rem;
+}

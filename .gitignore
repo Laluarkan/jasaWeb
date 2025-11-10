@@ -1,0 +1,16 @@
+# File rahasia
+.env
+
+# Database lokal (jangan pernah di-upload)
+db.sqlite3
+*.sqlite3
+
+# Folder media yang di-upload
+/media/
+
+# Folder static yang dikumpulkan (dari Langkah 2)
+/staticfiles/
+
+# Cache Python
+__pycache__/
+*.pyc

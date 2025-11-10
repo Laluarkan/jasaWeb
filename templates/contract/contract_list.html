@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %} {% block title %}Kontrak Saya{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/contract.css' %}">
+{% endblock %}
+    
+{% block content %}
+<section class="home-section">
+    <h1 class="text-center">Kontrak Saya</h1>
+    <p class="section-subtitle text-center">Berikut adalah status proyek Anda dengan kami.</p>
+
+    <div class="contracts-container">
+        
+        {% for contract in contracts %}
+            <div class="card contract-card">
+                <h3>{{ contract.project_name }}</h3>
+                
+                <p>
+                    <span class="status-label">Status:</span> 
+                    
+                    <span class="status-tag status-{{ contract.status|lower|slugify }}">
+                        {{ contract.get_status_display }}
+                    </span>
+                </p>
+
+                {% if contract.description %}
+                    <p>{{ contract.description|linebreaks }}</p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p class="text-center">Anda belum memiliki kontrak aktif dengan kami.</p>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}

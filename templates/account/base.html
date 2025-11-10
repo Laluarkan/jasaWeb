@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% load static %}
+
+{% block title %}{% block head_title %}{% endblock %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="home-section">
+    <div class="auth-form-container">
+        
+        {% block inner_content %}
+        {% endblock %}
+        
+    </div>
+</section>
+{% endblock %}

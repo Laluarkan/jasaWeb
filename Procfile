@@ -1,0 +1,1 @@
+web: gunicorn jasaWeb.wsgi --log-file -

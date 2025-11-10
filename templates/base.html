@@ -1,0 +1,103 @@
+{% load static %}
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <title>{% block title %}Jasa Website Profesional{% endblock %} | Web_Kan;</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+    {% block extra_css %}
+    {% endblock %}
+
+    <link rel="icon" type="image/png" href="{% static 'images/favicon.png' %}">
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            
+            <div class="nav-brand">
+                <a href="{% url 'core:home' %}" class="nav-brand-link">
+                    <img src="{% static 'images/logo1.png' %}" alt="Web_Kan Logo" class="nav-logo">
+                    <span>Web_Kan<span class="logo-semicolon">;</span></span>
+                </a>
+            </div>
+
+            <div class="nav-menu-wrapper">
+
+                <div class="nav-links" id="nav-menu">
+                    <a href="{% url 'core:home' %}">Home</a>
+                    <a href="{% url 'portfolio:project_list' %}">Portofolio</a>
+                    <a href="{% url 'blog:post_list' %}">Blog</a>
+                    <a href="{% url 'core:services' %}">Layanan</a>
+                    
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'contract:contract_list' %}" class="mobile-only">Kontrak Saya</a>
+                        <a href="{% url 'contact:contact' %}" class="mobile-only">Kontak</a>
+                        
+                        {% if user.is_staff %}
+                        <a href="{% url 'admin:index' %}" class="mobile-only admin-link">Halaman Admin</a>
+                        {% endif %}
+                        <a href="{% url 'account_logout' %}" class="mobile-only logout-link">Logout</a>
+                    
+                    {% else %}
+                        <a href="{% url 'contact:contact' %}">Kontak</a>
+                        <a href="{% provider_login_url 'google' %}" class="btn-login">Login with Google</a>
+                    {% endif %}
+                </div>
+
+                {% if user.is_authenticated %}
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <button class="profile-toggle" id="profile-toggle">
+                        {% if user.socialaccount_set.all.0.get_avatar_url %}
+                            <img src="{{ user.socialaccount_set.all.0.get_avatar_url }}" alt="Foto Profil">
+                        {% else %}
+                            <span class="profile-initial">{{ user.username.0|upper }}</span>
+                        {% endif %}
+                    </button>
+                    <div class="profile-menu" id="profile-menu">
+                        <div class="profile-menu-header">
+                            <strong>{{ user.username }}</strong>
+                            <small>{{ user.email }}</small>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'contract:contract_list' %}">Kontrak Saya</a>
+                        <a href="{% url 'contact:contact' %}">Kontak</a>
+                        
+                        {% if user.is_staff %}
+                        <a href="{% url 'admin:index' %}" class="admin-link">Halaman Admin</a>
+                        {% endif %}
+                        <div class="dropdown-divider"></div>
+                        <a href="{% url 'account_logout' %}" class="logout-link">Logout</a>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div> <button class="nav-toggle" id="nav-toggle">
+                &#9776; </button>
+            
+        </div>
+    </nav>
+    
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; {% now "Y" %} Web-Kan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    
+    {% block extra_js %}
+    {% endblock %}
+</body>
+</html>

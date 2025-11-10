@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Portofolio Proyek{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/portfolio.css' %}">
+{% endblock %}
+
+{% block content %}
+    <h1>Portofolio Proyek Kami</h1>
+    
+    <div class="project-grid">
+        {% for project in projects %}
+            <article class="card project-card">
+                {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                {% endif %}
+                <div class="project-card-content">
+                    <h3>
+                        <a href="{{ project.get_absolute_url }}">{{ project.title }}</a>
+                    </h3>
+                    <p>Selesai pada: {{ project.date_completed|date:"d M Y" }}</p>
+                    <a href="{{ project.get_absolute_url }}" class="btn">Lihat Detail</a>
+                </div>
+            </article>
+        {% empty %}
+            <p>Belum ada proyek untuk ditampilkan.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

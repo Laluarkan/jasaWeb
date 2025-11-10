@@ -1,0 +1,16 @@
+{% extends "account/base.html" %}
+{% load i18n %}
+
+{% block head_title %}Sign In Via Google{% endblock %}
+
+{% block inner_content %}
+    <h1>Sign In Via Google</h1>
+
+    <p>{% blocktrans %}You are about to sign in using a third-party account from Google.{% endblocktrans %}</p>
+
+    <form method="post" class="auth-form">
+        {% csrf_token %}
+        {{ form.as_p }} 
+        <button type="submit" class="btn">Continue</button>
+    </form>
+{% endblock %}

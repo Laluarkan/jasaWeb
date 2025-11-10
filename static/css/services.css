@@ -1,0 +1,86 @@
+/* static/css/services.css */
+
+.services-page-section {
+    margin-bottom: 4rem;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.section-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: -0.5rem auto 2.5rem auto;
+}
+
+.services-grid {
+    display: grid;
+    /* Grid ini akan otomatis jadi 3 kolom di desktop,
+      2 di tablet, dan 1 di mobile.
+    */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* Kita gunakan .card dari base.css tapi kita beri style tambahan */
+.service-card {
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center; /* Pusatkan konten card */
+    align-items: center; /* Pusatkan ikon */
+}
+
+.service-icon {
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    
+    /* Beri warna gradasi pada ikon agar sama dengan logo Anda */
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.service-card h3 {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.service-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 400px; /* Batasi lebar teks agar rapi */
+}
+
+.service-select-btn {
+    /* Memberi jarak dari paragraf di atasnya */
+    margin-top: 1.5rem;
+    
+    /* Jadikan 'ghost button' agar tidak terlalu ramai */
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    padding: 0.6rem 1.5rem;
+    
+    /* Ambil gaya tombol bulat dari base.css */
+    border-radius: 50px;
+}
+
+.service-select-btn:hover {
+    /* Balik warnanya saat di-hover (menjadi solid) */
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    
+    /* Efek dari base.css */
+    transform: translateY(-3px); 
+    box-shadow: 0 4px 15px rgba(157, 78, 221, 0.4);
+}

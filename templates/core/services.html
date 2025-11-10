@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Layanan Kami {% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/services.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="services-page-section">
+        <h1 class="text-center">Layanan Profesional Kami</h1>
+        <p class="section-subtitle text-center">Kami hadir untuk mengubah ide Anda menjadi solusi digital yang fungsional dan elegan.</p>
+
+        <div class="services-grid">
+            
+            <div class="card service-card">
+                <div class="service-icon">🏢</div>
+                <h3>Website Profil Perusahaan</h3>
+                <p>Kesan pertama adalah segalanya. Kami akan membangun website (company profile) yang profesional dan elegan untuk meningkatkan kredibilitas bisnis Anda.</p>
+                <a href="{% url 'contact:contact' %}?service=profil" class="btn service-select-btn">Pilih Layanan Ini</a>
+            </div>
+
+            <div class="card service-card">
+                <div class="service-icon">🛒</div>
+                <h3>Toko Online (E-commerce)</h3>
+                <p>Mulai jual produk Anda secara online. Kami membuat toko online yang aman, cepat, dan mudah Anda kelola sendiri, lengkap dengan manajemen produk.</p>
+                <a href="{% url 'contact:contact' %}?service=ecommerce" class="btn service-select-btn">Pilih Layanan Ini</a>
+            </div>
+
+            <div class="card service-card">
+                <div class="service-icon">🛠️</div>
+                <h3>Jasa Maintenance Website</h3>
+                <p>Website sudah jadi? Jangan biarkan usang. Kami menawarkan jasa maintenance rutin, update keamanan, dan backup data agar website Anda selalu optimal.</p>
+                <a href="{% url 'contact:contact' %}?service=maintenance" class="btn service-select-btn">Pilih Layanan Ini</a>
+            </div>
+
+            <div class="card service-card">
+                <div class="service-icon">🎨</div>
+                <h3>Desain UI/UX</h3>
+                <p>Bukan hanya 'cantik', tapi juga fungsional. Kami merancang alur pengguna (UX) yang logis dan antarmuka (UI) yang intuitif agar mudah digunakan.</p>
+                <a href="{% url 'contact:contact' %}?service=uiux" class="btn service-select-btn">Pilih Layanan Ini</a>
+            </div>
+
+            <div class="card service-card">
+                <div class="service-icon">⚙️</div>
+                <h3>Web Aplikasi Kustom (AI/IoT)</h3>
+                <p>Punya ide kompleks? Seperti web prediksi atau dashboard IoT, kami dapat membangun aplikasi web kustom dengan backend Django yang kuat.</p>
+                <a href="{% url 'contact:contact' %}?service=custom_app" class="btn service-select-btn">Pilih Layanan Ini</a>
+            </div>
+
+            <div class="card service-card">
+                <div class="service-icon">✍️</div>
+                <h3>Blog & Portofolio Pribadi</h3>
+                <p>Tunjukkan keahlian Anda. Kami membuatkan platform blog atau portofolio pribadi yang cepat dan minimalis untuk memamerkan karya Anda.</p>
+                <a href="{% url 'contact:contact' %}?service=blog" class="btn service-select-btn">Pilih Layanan Ini</a>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="home-section cta-section text-center">
+        <h2>Punya Kebutuhan Lain?</h2>
+        <p class="section-subtitle">Setiap proyek unik. Diskusikan ide Anda dengan kami, gratis!</p>
+        <a href="{% url 'contact:contact' %}" class="btn">Hubungi Kami</a>
+    </section>
+
+{% endblock %}

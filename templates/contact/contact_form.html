@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Hubungi Kami{% endblock %}
+
+{% block content %}
+<div class="contact-form-container">
+    <h1>Hubungi Kami</h1>
+    <p>Ada pertanyaan atau ingin memulai proyek? Silakan isi formulir di bawah ini.</p>
+    
+    <form method="POST" novalidate class="contact-form">
+        {% csrf_token %}
+        
+        {{ form.as_p }}
+        
+        <button type="submit">Kirim Pesan</button>
+    </form>
+</div>
+{% endblock %}

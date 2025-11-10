@@ -1,0 +1,88 @@
+/* static/css/contract.css */
+
+.text-center {
+    text-align: center;
+}
+
+.section-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: -0.5rem auto 2.5rem auto;
+}
+
+.contracts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Jarak antar card kontrak */
+    max-width: 800px; /* Batasi lebar agar tidak terlalu panjang */
+    margin: 0 auto; /* Posisikan di tengah */
+}
+
+/* Kita gunakan style .card dari base.css */
+.contract-card {
+    padding: 2rem;
+    background: var(--bg-dark-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    /* Tambahkan aksen garis di kiri */
+    border-left: 5px solid var(--primary-color); 
+}
+
+.contract-card h3 {
+    color: var(--text-light);
+    margin-bottom: 0.75rem;
+    font-size: 1.5rem;
+}
+
+.contract-card p {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem; /* Jarak antar paragraf lebih rapat */
+    line-height: 1.7;
+}
+
+/* === STYLING UNTUK STATUS KONTRAK === */
+
+/* Ini untuk teks "Status:" */
+.status-label {
+    font-weight: 500;
+    color: var(--text-light);
+    margin-right: 0.5rem;
+}
+
+/* Ini adalah 'kotak' tag berwarna */
+.status-tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* * WARNA UNTUK SETIAP TAHAPAN
+ */
+
+/* Kuning/Oranye untuk 'Menunggu Pembayaran' */
+.status-pending {
+    background-color: #f39c1230; 
+    color: #f39c12;
+}
+
+/* Biru untuk 'Sedang Dikerjakan' */
+.status-in-progress {
+    background-color: #007bff30; 
+    color: #3498db;
+}
+
+/* Ungu untuk 'Tahap Review Klien' */
+.status-review {
+    background-color: #9b59b630; 
+    color: #9b59b6;
+}
+
+/* Hijau untuk 'Selesai' (Sesuai permintaan Anda) */
+.status-completed {
+    background-color: #2ecc7130; 
+    color: #2ecc71;
+}

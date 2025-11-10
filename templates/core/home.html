@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+
+{% block content %}
+    
+    <div class="hero">
+        <h1 class="hero-title">
+            Kami Membuat <span id="typing-effect"></span>
+        </h1>
+        <p>Desain modern, responsif, dan SEO-friendly dengan tampilan yang elegan dan profesional.</p>
+        <a href="{% url 'portfolio:project_list' %}" class="btn">Lihat Portofolio Kami</a>
+    </div>
+
+    <section class="home-section text-center">
+        <h2>Mengapa Memilih Kami?</h2>
+        <p class="section-subtitle">Kami tidak hanya membangun website, kami membangun solusi digital untuk bisnis Anda.</p>
+        
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <span>📱</span> 
+                </div>
+                <h3>Desain Responsif</h3>
+                <p>Website Anda akan tampil sempurna di semua perangkat, dari desktop, tablet, hingga *mobile*.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <span>⚡</span>
+                </div>
+                <h3>Performa Cepat</h3>
+                <p>Kami mengoptimalkan kecepatan *loading* website untuk pengalaman pengguna terbaik dan skor SEO.</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <span>✏️</span>
+                </div>
+                <h3>Admin Panel Mudah</h3>
+                <p>Anda bisa mengelola konten (seperti portofolio & blog) dengan mudah melalui panel Admin Django.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section text-center fade-in-section">
+        <h2 class="text-center">Karya Terbaru Kami</h2>
+        <p class="section-subtitle text-center">Sebagian proyek yang baru saja kami selesaikan.</p>
+
+        <div class="project-grid">
+            {% for project in latest_projects %}
+                <article class="card project-card">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                    {% endif %}
+                    <div class="project-card-content">
+                        <h3>
+                            <a href="{{ project.get_absolute_url }}">{{ project.title }}</a>
+                        </h3>
+                        <p>Selesai pada: {{ project.date_completed|date:"d M Y" }}</p>
+                        <a href="{{ project.get_absolute_url }}" class="btn project-card-btn">Lihat Detail</a>
+                    </div>
+                </article>
+            {% empty %}
+                <p class="text-center" style="grid-column: 1 / -1;">Belum ada portofolio untuk ditampilkan.</p>
+            {% endfor %}
+        </div>
+
+        <div class="text-center" style="margin-top: 2.5rem;">
+            <a href="{% url 'portfolio:project_list' %}" class="btn">Lihat Semua Portofolio</a>
+        </div>
+    </section>
+
+    <section class="home-section text-center fade-in-section">
+        <h2 class="text-center">Layanan yang Kami Tawarkan</h2>
+        <p class="section-subtitle text-center">Solusi lengkap untuk kebutuhan digital Anda.</p>
+
+        <div class="services-grid">
+            <div class="card service-card">
+                <h3>Website Profil Perusahaan</h3>
+                <p>Tampilkan identitas bisnis Anda secara profesional dan bangun kepercayaan klien baru dengan <strong>company profile</strong> yang elegan.</p>
+            </div>
+            <div class="card service-card">
+                <h3>Toko Online (E-Commerce)</h3>
+                <p>Mulai jual produk Anda secara online dengan sistem manajemen yang aman dan mudah digunakan (manajemen produk, stok, dll).</p>
+            </div>
+            <div class="card service-card">
+                <h3>Website Portofolio/Blog</h3>
+                <p>Tampilkan karya atau tulisan Anda dengan desain minimalis dan fokus pada konten, didukung oleh Django Admin yang kuat.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section text-center fade-in-section">
+        <h2>Proses Kerja Kami</h2>
+        <p class="section-subtitle">Transparan dan terstruktur untuk hasil terbaik.</p>
+
+        <div class="process-steps">
+            <div class="step-item">
+                <span class="step-number">1</span>
+                <h4>Diskusi & Perencanaan</h4>
+                <p>Kami memahami kebutuhan, target audiens, dan tujuan bisnis Anda.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-number">2</span>
+                <h4>Desain & Pengembangan</h4>
+                <p>Kami merancang *mockup* (UI/UX) dan mulai membangun website Anda dengan Django.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step-item">
+                <span class="step-number">3</span>
+                <h4>Review & Peluncuran</h4>
+                <p>Anda meninjau hasilnya, kami revisi, dan setelah disetujui, website Anda siap *go-live*!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="home-section cta-section text-center fade-in-section">
+        <h2>Siap Wujudkan Website Impian Anda?</h2>
+        <p class="section-subtitle">Jangan ragu untuk berdiskusi dengan kami. Konsultasi gratis!</p>
+        <a href="{% url 'contact:contact' %}" class="btn">Hubungi Kami Sekarang</a>
+    </section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+    <script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

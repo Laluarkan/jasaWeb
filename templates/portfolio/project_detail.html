@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ project.title }}</h1>
+    
+    {% if project.image %}
+        <img src="{{ project.image.url }}" alt="{{ project.title }}" style="max-width: 500px; height: auto;">
+    {% endif %}
+
+    <p><strong>Tanggal Selesai:</strong> {{ project.date_completed|date:"d F Y" }}</p>
+    
+    {% if project.url %}
+        <p><strong>Link Proyek:</strong> <a href="{{ project.url }}" target="_blank">Kunjungi Website</a></p>
+    {% endif %}
+
+    <hr>
+    <h3>Deskripsi Proyek:</h3>
+    <div>
+        {{ project.description|linebreaks }}
+    </div>
+
+    <hr>
+    <a href="{% url 'portfolio:project_list' %}">&laquo; Kembali ke Portofolio</a>
+{% endblock %}
