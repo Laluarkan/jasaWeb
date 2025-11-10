@@ -60,7 +60,7 @@ else:
 
     DEBUG = True
     
-    ALLOWED_HOSTS = [] # Kosongkan untuk 127.0.0.1
+    ALLOWED_HOSTS = ['webkan.onrender.com'] # Kosongkan untuk 127.0.0.1
     
     # Konfigurasi Database SQLite lokal
     DATABASES = {
