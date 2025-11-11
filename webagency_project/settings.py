@@ -91,6 +91,9 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'cloudinary',
+    'cloudinary_storage',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -165,9 +168,23 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'), # Ini harus menunjuk ke folder static utama Anda
 ]
+if IS_PRODUCTION:
+    # --- PENGATURAN PRODUKSI (Cloudinary) ---
+    # (Saat di Render)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    # Memberitahu Django untuk menggunakan Cloudinary sebagai penyimpanan media
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+    # (Library Cloudinary akan otomatis membaca CLOUDINARY_URL 
+    # dari Environment Variables Anda, jadi tidak perlu diatur lagi)
+
+else:
+    # --- PENGATURAN LOKAL (Development) ---
+    # (Saat di laptop Anda)
+
+    # Tetap gunakan folder 'media' lokal Anda
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
