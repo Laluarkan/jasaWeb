@@ -39,10 +39,11 @@ if IS_PRODUCTION:
     # (Saat di-deploy di hosting)
     
     print("Running in PRODUCTION mode")
+
+    CLOUDINARY_URL_FROM_ENV = os.environ.get('CLOUDINARY_URL')
+    print(f"CLOUDINARY_URL DITEMUKAN: {CLOUDINARY_URL_FROM_ENV}")
     
     DEBUG = False
-    
-    # GANTI 'jasaweb.com' dengan domain Anda nanti saat deploy
     ALLOWED_HOSTS = ['webkan-wmnm.onrender.com'] 
     
     # Konfigurasi Database PostgreSQL dari DATABASE_URL
@@ -174,9 +175,6 @@ if IS_PRODUCTION:
 
     # Memberitahu Django untuk menggunakan Cloudinary sebagai penyimpanan media
     DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-
-    # (Library Cloudinary akan otomatis membaca CLOUDINARY_URL 
-    # dari Environment Variables Anda, jadi tidak perlu diatur lagi)
 
 else:
     # --- PENGATURAN LOKAL (Development) ---
