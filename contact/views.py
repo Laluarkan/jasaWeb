@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import ContactForm
-from django.core.mail import send_mail
 from django.conf import settings
+import requests 
+from django.core.mail import send_mail # Pertahankan impor ini untuk menghindari error jika ada kode lama yang memanggilnya
 
 # Definisikan "kamus" untuk subjek dan pesan Anda
 SERVICE_SUBJECTS = {
@@ -23,8 +24,47 @@ SERVICE_MESSAGES = {
     'blog': 'Halo, saya ingin membuat Blog/Portofolio pribadi. Apa saja yang perlu saya siapkan?'
 }
 
+# --- FUNGSI NOTIFIKASI TELEGRAM ---
+def send_telegram_notification(subject, name, email, whatsapp_number, message_content):
+    """ Mengirim pesan ke Bot Telegram Anda. """
+    
+    # Kumpulkan isi pesan dalam format Markdown
+    message = (
+        f"🚨 *PESAN BARU DARI WEBSITE* 🚨\n\n"
+        f"Subjek: *{subject}*\n"
+        f"Nama: {name}\n"
+        f"Email: {email}\n"
+        f"WA/HP: *{whatsapp_number or 'Tidak Dicantumkan'}*\n"
+        f"----------------------------\n"
+        f"Isi:\n{message_content}"
+    )
 
-# --- HANYA ADA SATU FUNGSI INI ---
+    token = settings.TELEGRAM_BOT_TOKEN
+    chat_id = settings.TELEGRAM_CHAT_ID
+    
+    if not token or not chat_id:
+        print("ERROR: Token atau Chat ID Telegram tidak ditemukan di settings.")
+        return False
+
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    
+    payload = {
+        'chat_id': chat_id,
+        'text': message,
+        'parse_mode': 'Markdown' 
+    }
+
+    try:
+        # Kirim permintaan HTTP POST ke Telegram API
+        response = requests.post(url, data=payload, timeout=5)
+        response.raise_for_status()
+        return True
+    except requests.RequestException as e:
+        # Ini akan dicetak ke log Render jika gagal, tetapi TIDAK akan menyebabkan error 500
+        print(f"ERROR TELEGRAM: Gagal mengirim pesan. {e}")
+        return False
+
+# --- FUNGSI UTAMA (HANYA SATU) ---
 def contact_view(request):
     
     if request.method == 'POST':
@@ -32,69 +72,44 @@ def contact_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             
-            # 1. Ambil data bersih dari form
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
+            whatsapp_number = form.cleaned_data['whatsapp_number']
             subject = form.cleaned_data['subject']
             message_content = form.cleaned_data['message']
 
-            # 2. Simpan pesan ke database
+            # 1. Simpan pesan ke database
             form.save() 
-
-            # 3. Siapkan isi email yang akan Anda terima
-            email_subject = f"Pesan Baru dari Website: {subject}"
-            email_body = f"""
-            Anda menerima pesan baru dari:
             
-            Nama: {name}
-            Email: {email}
+            # 2. KIRIM NOTIFIKASI TELEGRAM
+            send_telegram_notification(subject, name, email, whatsapp_number, message_content)
             
-            Isi Pesan:
-            {message_content}
-            """
-            
-            # 4. Tentukan pengirim dan penerima
-            from_email = settings.EMAIL_HOST_USER
-            recipient_list = [settings.EMAIL_HOST_USER] # Kirim ke email Anda sendiri
-
-            # 5. Kirim email!
-            try:
-                send_mail(
-                email_subject, 
-                email_body, 
-                from_email, 
-                recipient_list, 
-                fail_silently=True 
-                )
-            except Exception as e:
-                # Jika gagal, cetak error di terminal (untuk debugging)
-                print(f"Error saat mengirim email: {e}") 
-            
-            # 6. Redirect ke halaman sukses
+            # 3. Redirect ke halaman sukses
             return redirect(reverse('contact:contact_success'))
     
     else:
         # --- Handle halaman yang baru dibuka (GET) ---
         initial_data = {} # Mulai dengan data awal kosong
     
-        # 1. Cek parameter 'service' dari URL (dari halaman Layanan)
+        # 1. Cek parameter 'service' (dari halaman Layanan)
         service_key = request.GET.get('service')
         if service_key in SERVICE_SUBJECTS:
             initial_data['subject'] = SERVICE_SUBJECTS.get(service_key)
             initial_data['message'] = SERVICE_MESSAGES.get(service_key)
         
-        # 2. === INI LOGIKA YANG HILANG ===
-        # Cek apakah user sudah login
+        # 2. Cek apakah user sudah login (Fitur pengisian otomatis)
         if request.user.is_authenticated:
+            # Isi 'name' dan 'email' dari data user yang login
+            initial_data['name'] = request.user.first_name or request.user.username
             initial_data['email'] = request.user.email
 
-        # 3. Buat form baru dengan data awal yang sudah kita siapkan
+        # 3. Buat form baru dengan data awal
         form = ContactForm(initial=initial_data) 
 
-    # Tampilkan halaman dengan form (bisa kosong, bisa terisi)
+    # Tampilkan halaman dengan form
     return render(request, 'contact/contact_form.html', {'form': form})
 
 
 def contact_success_view(request):
-    # Halaman "terima kasih" (tanda kurung berlebih sudah dihapus)
+    # Halaman "terima kasih"
     return render(request, 'contact/contact_success.html')
