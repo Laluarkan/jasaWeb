@@ -59,7 +59,13 @@ def contact_view(request):
 
             # 5. Kirim email!
             try:
-                send_mail(email_subject, email_body, from_email, recipient_list)
+                send_mail(
+                email_subject, 
+                email_body, 
+                from_email, 
+                recipient_list, 
+                fail_silently=True 
+                )
             except Exception as e:
                 # Jika gagal, cetak error di terminal (untuk debugging)
                 print(f"Error saat mengirim email: {e}") 
