@@ -43,7 +43,7 @@ if IS_PRODUCTION:
     DEBUG = False
     
     # GANTI 'jasaweb.com' dengan domain Anda nanti saat deploy
-    ALLOWED_HOSTS = ['webkan.onrender.com'] 
+    ALLOWED_HOSTS = ['webkan-wmnm.onrender.com'] 
     
     # Konfigurasi Database PostgreSQL dari DATABASE_URL
     DATABASES = {
