@@ -39,11 +39,11 @@ if IS_PRODUCTION:
     # (Saat di-deploy di hosting)
     
     print("Running in PRODUCTION mode")
-
-    CLOUDINARY_URL_FROM_ENV = os.environ.get('CLOUDINARY_URL')
-    print(f"CLOUDINARY_URL DITEMUKAN: {CLOUDINARY_URL_FROM_ENV}")
+    
     
     DEBUG = False
+    
+    # GANTI 'jasaweb.com' dengan domain Anda nanti saat deploy
     ALLOWED_HOSTS = ['webkan-wmnm.onrender.com'] 
     
     # Konfigurasi Database PostgreSQL dari DATABASE_URL
@@ -51,6 +51,14 @@ if IS_PRODUCTION:
         'default': dj_database_url.config(
             default=os.environ.get('DATABASE_URL')
         )
+    }
+
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+        'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+        'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
     }
 
 else:
