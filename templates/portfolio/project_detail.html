@@ -5,7 +5,7 @@
     <h1>{{ project.title }}</h1>
     
     {% if project.image %}
-        <img src="{{ project.image.url }}" alt="{{ project.title }}" style="max-width: 500px; height: auto;">
+        <img src="{{ project.image_url }}" alt="{{ project.title }}"" style="max-width: 500px; height: auto;">
     {% endif %}
 
     <p><strong>Tanggal Selesai:</strong> {{ project.date_completed|date:"d F Y" }}</p>

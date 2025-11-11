@@ -14,7 +14,7 @@
         {% for project in projects %}
             <article class="card project-card">
                 {% if project.image %}
-                    <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                    <img src="{{ project.image_url }}" alt="{{ project.title }}">
                 {% endif %}
                 <div class="project-card-content">
                     <h3>
